@@ -1,33 +1,15 @@
-HAZELTUN PROXY — WINDOWS QUICK START
+# Hazeltun Proxy — Vercel deployment
 
-WHAT IS INCLUDED
-  index.html          Website design, code-entry screen, and browser controls
-  server.mjs          Local web server and proxy backend
-  package.json        Project details (no extra packages are needed)
-  start-hazeltun.bat  Double-click launcher for Windows
-  public\logo.jpg     Your Hazeltun logo
+This project keeps the existing Hazeltun interface and adds Vercel serverless API routes for the proxy backend.
 
-RUN IT
-1. Install Node.js 20 or newer from https://nodejs.org/ if Node is not installed.
-2. Extract hazeltun-proxy.zip to a folder you can find, such as Documents\Hazeltun.
-3. Open that extracted folder and double-click start-hazeltun.bat.
-4. Leave the black server window open while you use the site.
-5. In Chrome or Edge running on the same computer, open http://localhost:4173
-6. Enter the access code: 4578
+## Deploy
+1. Upload/replace the files in your existing GitHub repository with the contents of this folder. Keep the `api/`, `lib/`, `public/`, `index.html`, `package.json`, and `vercel.json` paths exactly as shown.
+2. In Vercel, open your project → Settings → Environment Variables.
+3. Add `HAZELTUN_CODE` with the four-digit code you want to use. If omitted, the existing default `4578` is used.
+4. Add `HAZELTUN_SESSION_SECRET` with a long random secret (at least 32 random characters). Do not share it or put it in GitHub.
+5. Apply the variables to Production (and Preview if needed), then redeploy.
 
-LOCALHOST EXPLAINED
-"localhost" means this computer. It is not a public internet address. The server
-must be running before the address works. Codex's in-app browser may run separately
-and may not be able to access your computer's localhost; use Chrome or Edge directly.
+The old `server.mjs` remains for local use. Vercel uses the `api/` functions and `vercel.json` rewrites.
 
-TROUBLESHOOTING
-• If the page says it cannot connect, make sure the black server window is still open.
-• If port 4173 is already in use, close the other Hazeltun server window and reopen
-  start-hazeltun.bat.
-• If Windows says Node is missing, install Node.js 20+ and reopen the launcher.
-• A few websites may not work through a simple proxy because they block embedding,
-  require sign-in, or depend on browser features this lightweight proxy does not pass through.
-
-The access code is checked by the local server. Successful access lasts four hours
-or until you press Lock. To change the code, set the HAZELTUN_CODE environment
-variable before starting the server.
+## Important limitations
+This is a lightweight page proxy, not a full browser. Some sites will fail because they rely on complex JavaScript, WebSockets, cross-origin APIs, sign-in flows, or anti-bot protections. Do not use it to enter passwords or sensitive information. Only proxy sites you are allowed to access.
